@@ -3,7 +3,7 @@
 # production config and external assets
 !mempool-config.template.json
 !mempool-config.sample.json
-mempool-config.json
+!mempool-config.json
 pools.json
 icons.json
 
