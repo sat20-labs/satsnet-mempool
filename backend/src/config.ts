@@ -162,11 +162,7 @@ interface IConfig {
   },
   WALLETS: {
     ENABLED: boolean;
-    WALLETS: {
-      url: string;
-      name: string;
-      apiKey: string;
-    }[];
+    WALLETS: string[];
   }
 }
 
