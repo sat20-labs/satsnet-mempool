@@ -5,12 +5,19 @@
       "type": "node",
       "request": "launch",
       "name": "Backend",
-      "skipFiles": ["<node_internals>/**"],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["ts-node"],
-      "args": ["${workspaceFolder}/backend/src/index.ts"],
+      "runtimeArgs": [
+        "ts-node"
+      ],
+      "args": [
+        "${workspaceFolder}/backend/src/index.ts"
+      ],
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/backend",
+      "runtimeVersion": "20.5.0"
     }
   ]
 }
