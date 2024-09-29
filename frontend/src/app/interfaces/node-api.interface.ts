@@ -1,4 +1,4 @@
-import { AddressTxSummary, Block, Transaction } from "./electrs.interface";
+import { AddressTxSummary, Block, ChainStats, Transaction } from "./electrs.interface";
 
 export interface OptimizedMempoolStats {
   added: number;
@@ -457,5 +457,6 @@ export interface TestMempoolAcceptResult {
 export interface WalletAddress {
   address: string;
   active: boolean;
-  transactions?: AddressTxSummary[];
+  stats: ChainStats;
+  transactions: AddressTxSummary[];
 }
