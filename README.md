@@ -36,3 +36,17 @@ Mempool can be installed in other ways too, but we only recommend doing so if yo
 - See the [`docker/`](./docker/) directory for instructions on deploying Mempool with Docker.
 - See the [`backend/`](./backend/) and [`frontend/`](./frontend/) directories for manual install instructions oriented for developers.
 - See the [`production/`](./production/) directory for guidance on setting up a more serious Mempool instance designed for high performance at scale.
+
+
+## curl 
+```shell
+curl --user jacky:_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -k --cacert ./rpc2.cert --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getchaintips", "params": []}' -H 'content-type: text/plain;' https://192.168.10.103:8337/
+
+curl --user jacky:_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -k --cacert ./rpc2.cert --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", " "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"]}' -H 'content-type: text/plain;' https://192.168.10.103:8337/
+
+curl --user jacky:_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -k --cacert ./rpc2.cert --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["00000000000000000000ffa9ab62703fcff5a55ad896d430b672f0ff71572443"]}' -H 'content-type: text/plain;' https://192.168.10.103:8337/
+
+curl --user jacky:_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0 -k --cacert ./rpc2.cert --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblockstats", "params": [0]}' -H 'content-type: text/plain;' https://192.168.10.103:8337/
+
+curl --user q17AIoqBJSEhW7djqjn0nTsZcz4=:nnlkAZn58bqsyYwVtHIajZ16cj8= -k --cacert ./satsnet-rpc2.cert --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getchaintips", "params": []}' -H 'content-type: text/plain;' https://192.168.10.104:14827/
+```

@@ -39,8 +39,9 @@
     "UNIX_SOCKET_PATH": ""
   },
   "CORE_RPC": {
-    "HOST": "192.168.10.101",
-    "PORT": 8332,
+    "HOST": "192.168.10.103",
+    "PORT": 8337,
+    "CERT": "./rpc2.cert",
     "USERNAME": "jacky",
     "PASSWORD": "_RZekaGRgKQJSIOYi6vq0_CkJtjoCootamy81J2cDn0",
     "TIMEOUT": 60000,

@@ -44,13 +44,13 @@ class Indexer {
         synced: indexes[indexName].synced,
         best_block_height: indexes[indexName].best_block_height,
       };
-      logger.info(`Core index '${indexName}' is ${indexes[indexName].synced ? 'synced' : 'not synced'}. Best block height is ${indexes[indexName].best_block_height}`);      
+      logger.info(`Core index '${indexName}' is ${indexes[indexName].synced ? 'synced' : 'not synced'}. Best block height is ${indexes[indexName].best_block_height}`);
       updatedCoreIndexes.push(newState);
 
       if (indexName === 'coinstatsindex' && newState.synced === true) {
         const previousState = this.isCoreIndexReady('coinstatsindex');
         // if (!previousState || previousState.synced === false) {
-          this.runSingleTask('coinStatsIndex');
+        this.runSingleTask('coinStatsIndex');
         // }
       }
     }
@@ -125,7 +125,7 @@ class Indexer {
             lastestPriceId = await PricesRepository.$getLatestPriceId();
           } catch (e) {
             logger.debug('failed to fetch latest price id from db: ' + (e instanceof Error ? e.message : e));
-          }          if (priceUpdater.historyInserted === false || lastestPriceId === null) {
+          } if (priceUpdater.historyInserted === false || lastestPriceId === null) {
             logger.debug(`Blocks prices indexer is waiting for the price updater to complete`, logger.tags.mining);
             this.scheduleSingleTask(task, 10000);
           } else {
@@ -170,7 +170,8 @@ class Indexer {
 
     logger.debug(`Running mining indexer`);
 
-    await this.checkAvailableCoreIndexes();
+    // TODO: need implementation in satsnet/btcd for getindexinfo rpc api
+    // await this.checkAvailableCoreIndexes();
 
     try {
       const chainValid = await blocks.$generateBlockDatabase();
