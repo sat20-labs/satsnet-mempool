@@ -40,6 +40,7 @@ export interface BitcoinRpcCredentials {
   pass: string;
   timeout: number;
   cookie?: string;
+  cert: string;
 }
 
 export interface HealthCheckHost {

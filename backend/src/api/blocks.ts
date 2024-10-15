@@ -243,7 +243,7 @@ class Blocks {
    */
   private async $getBlockExtended(block: IEsploraApi.Block, transactions: TransactionExtended[]): Promise<BlockExtended> {
     const coinbaseTx = transactionUtils.stripCoinbaseTransaction(transactions[0]);
-    
+
     const blk: Partial<BlockExtended> = Object.assign({}, block);
     const extras: Partial<BlockExtension> = {};
 
@@ -266,6 +266,7 @@ class Blocks {
       extras.segwitTotalSize = 0;
       extras.segwitTotalWeight = 0;
     } else {
+      // TODO: add block stats in btcd
       const stats: IBitcoinApi.BlockStats = await bitcoinClient.getBlockStats(block.id);
       let feeStats = {
         medianFee: stats.feerate_percentiles[2], // 50th percentiles
@@ -295,7 +296,7 @@ class Blocks {
         extras.medianFeeAmt = extras.feePercentiles[3];
       }
     }
-  
+
     extras.virtualSize = block.weight / 4.0;
     if (coinbaseTx?.vout.length > 0) {
       extras.coinbaseAddress = coinbaseTx.vout[0].scriptpubkey_address ?? null;
@@ -316,7 +317,7 @@ class Blocks {
     if (coinStatsIndex !== null && coinStatsIndex.best_block_height >= block.height) {
       const txoutset = await bitcoinClient.getTxoutSetinfo('none', block.height);
       extras.utxoSetSize = txoutset.txouts,
-      extras.totalInputAmt = Math.round(txoutset.block_info.prevout_spent * 100000000);
+        extras.totalInputAmt = Math.round(txoutset.block_info.prevout_spent * 100000000);
     } else {
       extras.utxoSetSize = null;
       extras.totalInputAmt = null;
@@ -468,7 +469,7 @@ class Blocks {
   /**
    * [INDEXING] Index transaction CPFP data for all blocks
    */
-   public async $generateCPFPDatabase(): Promise<void> {
+  public async $generateCPFPDatabase(): Promise<void> {
     if (Common.cpfpIndexingEnabled() === false) {
       return;
     }
@@ -895,13 +896,16 @@ class Blocks {
       const blockHash = await bitcoinCoreApi.$getBlockHash(this.currentBlockHeight);
       const verboseBlock = await bitcoinClient.getBlock(blockHash, 2);
       const block = BitcoinApi.convertBlock(verboseBlock);
-      const txIds: string[] = verboseBlock.tx.map(tx => tx.txid);
+      // const txIds: string[] = verboseBlock.tx.map(tx => tx.txid);
+      const txIds: string[] = verboseBlock.rawtx.map(tx => tx.txid);
       const transactions = await this.$getTransactionsExtended(blockHash, block.height, block.timestamp, false, txIds, false, true) as MempoolTransactionExtended[];
 
       // fill in missing transaction fee data from verboseBlock
       for (let i = 0; i < transactions.length; i++) {
-        if (!transactions[i].fee && transactions[i].txid === verboseBlock.tx[i].txid) {
-          transactions[i].fee = (verboseBlock.tx[i].fee * 100_000_000) || 0;
+        // if (!transactions[i].fee && transactions[i].txid === verboseBlock.tx[i].txid) {
+        if (!transactions[i].fee && transactions[i].txid === verboseBlock.rawtx[i].txid) {
+          // transactions[i].fee = (verboseBlock.tx[i].fee * 100_000_000) || 0;
+          transactions[i].fee = (verboseBlock.rawtx[i].fee * 100_000_000) || 0;
         }
       }
 
@@ -1142,8 +1146,7 @@ class Blocks {
   }
 
   public async $getStrippedBlockTransactions(hash: string, skipMemoryCache = false,
-    skipDBLookup = false, cpfpSummary?: CpfpSummary, blockHeight?: number): Promise<TransactionClassified[]>
-  {
+    skipDBLookup = false, cpfpSummary?: CpfpSummary, blockHeight?: number): Promise<TransactionClassified[]> {
     if (skipMemoryCache === false) {
       // Check the memory cache
       const cachedSummary = this.getBlockSummaries().find((b) => b.id === hash);

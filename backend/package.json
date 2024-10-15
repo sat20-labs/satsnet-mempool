@@ -21,6 +21,7 @@
   ],
   "main": "index.ts",
   "scripts": {
+    "dev": "npx ts-node src/index.ts",
     "tsc": "./node_modules/typescript/bin/tsc -p tsconfig.build.json",
     "build": "npm run tsc && npm run create-resources",
     "clean": "rm -rf ./dist/ ./node_modules/ ./package/ ./rust-gbt/",

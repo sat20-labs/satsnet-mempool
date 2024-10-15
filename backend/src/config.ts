@@ -1,5 +1,5 @@
 const configFromFile = require(
-    process.env.MEMPOOL_CONFIG_FILE ? process.env.MEMPOOL_CONFIG_FILE : '../mempool-config.json'
+  process.env.MEMPOOL_CONFIG_FILE ? process.env.MEMPOOL_CONFIG_FILE : '../mempool-config.json'
 );
 
 interface IConfig {
@@ -80,6 +80,7 @@ interface IConfig {
   CORE_RPC: {
     HOST: string;
     PORT: number;
+    CERT: string;
     USERNAME: string;
     PASSWORD: string;
     TIMEOUT: number;
@@ -89,6 +90,7 @@ interface IConfig {
   SECOND_CORE_RPC: {
     HOST: string;
     PORT: number;
+    CERT: string;
     USERNAME: string;
     PASSWORD: string;
     TIMEOUT: number;
@@ -221,6 +223,7 @@ const defaults: IConfig = {
   'CORE_RPC': {
     'HOST': '127.0.0.1',
     'PORT': 8332,
+    'CERT': './rpc2.cert',
     'USERNAME': 'mempool',
     'PASSWORD': 'mempool',
     'TIMEOUT': 60000,
@@ -230,6 +233,7 @@ const defaults: IConfig = {
   'SECOND_CORE_RPC': {
     'HOST': '127.0.0.1',
     'PORT': 8332,
+    'CERT': './rpc2.cert',
     'USERNAME': 'mempool',
     'PASSWORD': 'mempool',
     'TIMEOUT': 60000,
