@@ -243,7 +243,7 @@ class Blocks {
    */
   private async $getBlockExtended(block: IEsploraApi.Block, transactions: TransactionExtended[]): Promise<BlockExtended> {
     const coinbaseTx = transactionUtils.stripCoinbaseTransaction(transactions[0]);
-
+    
     const blk: Partial<BlockExtended> = Object.assign({}, block);
     const extras: Partial<BlockExtension> = {};
 
@@ -266,8 +266,7 @@ class Blocks {
       extras.segwitTotalSize = 0;
       extras.segwitTotalWeight = 0;
     } else {
-      // TODO: add block stats in btcd
-      const stats: IBitcoinApi.BlockStats = await bitcoinClient.getBlockStats(block.id);
+      const stats: IBitcoinApi.BlockStats = await bitcoinClient.getBlockStats(block.id); // TODO: add block stats in btcd
       let feeStats = {
         medianFee: stats.feerate_percentiles[2], // 50th percentiles
         feeRange: [stats.minfeerate, stats.feerate_percentiles, stats.maxfeerate].flat(),
@@ -296,7 +295,7 @@ class Blocks {
         extras.medianFeeAmt = extras.feePercentiles[3];
       }
     }
-
+  
     extras.virtualSize = block.weight / 4.0;
     if (coinbaseTx?.vout.length > 0) {
       extras.coinbaseAddress = coinbaseTx.vout[0].scriptpubkey_address ?? null;
@@ -317,7 +316,7 @@ class Blocks {
     if (coinStatsIndex !== null && coinStatsIndex.best_block_height >= block.height) {
       const txoutset = await bitcoinClient.getTxoutSetinfo('none', block.height);
       extras.utxoSetSize = txoutset.txouts,
-        extras.totalInputAmt = Math.round(txoutset.block_info.prevout_spent * 100000000);
+      extras.totalInputAmt = Math.round(txoutset.block_info.prevout_spent * 100000000);
     } else {
       extras.utxoSetSize = null;
       extras.totalInputAmt = null;
@@ -469,7 +468,7 @@ class Blocks {
   /**
    * [INDEXING] Index transaction CPFP data for all blocks
    */
-  public async $generateCPFPDatabase(): Promise<void> {
+   public async $generateCPFPDatabase(): Promise<void> {
     if (Common.cpfpIndexingEnabled() === false) {
       return;
     }
@@ -1146,7 +1145,8 @@ class Blocks {
   }
 
   public async $getStrippedBlockTransactions(hash: string, skipMemoryCache = false,
-    skipDBLookup = false, cpfpSummary?: CpfpSummary, blockHeight?: number): Promise<TransactionClassified[]> {
+    skipDBLookup = false, cpfpSummary?: CpfpSummary, blockHeight?: number): Promise<TransactionClassified[]>
+  {
     if (skipMemoryCache === false) {
       // Check the memory cache
       const cachedSummary = this.getBlockSummaries().find((b) => b.id === hash);

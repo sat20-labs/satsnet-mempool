@@ -42,7 +42,9 @@ class BitcoinApi implements AbstractBitcoinApi {
       return this.$addPrevouts(txInMempool);
     }
 
-    return this.bitcoindClient.getRawTransaction(txId, true)
+    // for btcd/satsnet
+    const verbase = 1 // true
+    return this.bitcoindClient.getRawTransaction(txId, verbase)
       .then((transaction: IBitcoinApi.Transaction) => {
         if (skipConversion) {
           transaction.vout.forEach((vout) => {
@@ -88,7 +90,9 @@ class BitcoinApi implements AbstractBitcoinApi {
       return txInMempool.hex;
     }
 
-    return this.bitcoindClient.getRawTransaction(txId, true)
+    // for btcd/satsnet
+    const verbase = 1 // true
+    return this.bitcoindClient.getRawTransaction(txId, verbase)
       .then((transaction: IBitcoinApi.Transaction) => {
         return transaction.hex;
       });
