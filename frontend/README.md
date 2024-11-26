@@ -134,3 +134,7 @@ https://www.transifex.com/mempool/mempool/dashboard/
 * Romanian @mirceavesa
 * Macedonian @SkechBoy
 * Nepalese @kebinm
+
+### Satsnet Debug
+git checkout satsnet 
+cd frontend && npm run start

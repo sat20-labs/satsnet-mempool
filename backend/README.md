@@ -254,3 +254,7 @@ Feb 13 14:55:32 [63246] NOTICE: <lightning> Table hashrates has been truncated
 ```
 
 Reference: https://github.com/mempool/mempool/pull/1269
+
+### Satsnet Debug
+git checkout satsnet 
+cd backend && npm run dev
