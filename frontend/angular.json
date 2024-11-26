@@ -243,7 +243,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "mempool:build"
+            "buildTarget": "mempool:build",
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {
