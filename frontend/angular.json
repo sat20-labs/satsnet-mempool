@@ -252,6 +252,7 @@
             "local": {
               "proxyConfig": "proxy.conf.local.js",
               "host": "0.0.0.0",
+              "disableHostCheck": true,
               "verbose": true
             },
             "local-esplora": {
