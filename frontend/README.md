@@ -137,4 +137,8 @@ https://www.transifex.com/mempool/mempool/dashboard/
 
 ### Satsnet Debug
 git checkout satsnet 
-cd frontend && npm run start
+angular.json -> "serve"
+package.json (option)
+environment.ts (option)
+proxy.conf.local.js (option)
+cd frontend && npm run serve

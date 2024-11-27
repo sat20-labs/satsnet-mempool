@@ -57,3 +57,4 @@ Thumbs.db
 
 # Rust GBT folder (We build externally first)
 /rust-gbt
+mempool-mempool.pid
