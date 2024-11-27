@@ -7,6 +7,7 @@ import mempool from '../mempool';
 import { TransactionExtended } from '../../mempool.interfaces';
 import transactionUtils from '../transaction-utils';
 
+const UNKNOW_TXID = '0000000000000000000000000000000000000000000000000000000000000000'
 class BitcoinApi implements AbstractBitcoinApi {
   private rawMempoolCache: IBitcoinApi.RawMempool | null = null;
   protected bitcoindClient: any;
@@ -42,7 +43,23 @@ class BitcoinApi implements AbstractBitcoinApi {
       return this.$addPrevouts(txInMempool);
     }
 
-    // for btcd/satsnet
+    // TODO: satsnet
+    if (txId == UNKNOW_TXID) {
+      return Promise.resolve({
+        txid: txId,
+        version: 0,
+        locktime: 0,
+        size: 0,
+        weight: 0,
+        fee: 0,
+        vin: [],
+        vout: [],
+        status: {
+          confirmed: false
+        }
+      });
+    }
+    // TODO: satsnet
     const verbase = 1 // true
     return this.bitcoindClient.getRawTransaction(txId, verbase)
       .then((transaction: IBitcoinApi.Transaction) => {
@@ -399,6 +416,10 @@ class BitcoinApi implements AbstractBitcoinApi {
         continue;
       }
       const innerTx = await this.$getRawTransaction(transaction.vin[i].txid, false, false);
+      // TODO: satsnet
+      if (innerTx.txid == UNKNOW_TXID) {
+        continue
+      }
       transaction.vin[i].prevout = innerTx.vout[transaction.vin[i].vout];
       transactionUtils.addInnerScriptsToVin(transaction.vin[i]);
       totalIn += innerTx.vout[transaction.vin[i].vout].value;

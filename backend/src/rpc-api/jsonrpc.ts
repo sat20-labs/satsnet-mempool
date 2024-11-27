@@ -1,14 +1,12 @@
-// var http = require('http')
+var http = require('http')
 var https = require('https')
 import { readFileSync } from 'fs';
-import fs from 'fs';
 
 var JsonRPC = function (opts) {
   // @ts-ignore
   this.opts = opts || {}
   // @ts-ignore
-  this.http = https
-  // this.http = this.opts.ssl ? https : http
+  this.http = this.opts.ssl ? https : http
 }
 
 JsonRPC.prototype.call = function (method, params) {
@@ -45,21 +43,19 @@ JsonRPC.prototype.call = function (method, params) {
       host: this.opts.host || 'localhost',
       port: this.opts.port || 8332,
       method: 'POST',
-      cert: fs.readFileSync(this.opts.cert),
       path: '/',
       headers: {
         'Host': this.opts.host || 'localhost',
         'Content-Length': requestJSON.length
       },
       agent: false,
-      rejectUnauthorized: false
-      // rejectUnauthorized: this.opts.ssl && this.opts.sslStrict !== false
+      rejectUnauthorized: this.opts.ssl && this.opts.sslStrict !== false
     }
 
-    // if (this.opts.ssl && this.opts.sslCa) {
-    //   // @ts-ignore 
-    //   requestOptions.ca = this.opts.sslCa
-    // }
+    if (this.opts.ssl && this.opts.sslCa) {
+    // @ts-ignore 
+      requestOptions.ca = this.opts.sslCa
+    }
 
     // use HTTP auth if user and password set
     if (this.opts.cookie) {

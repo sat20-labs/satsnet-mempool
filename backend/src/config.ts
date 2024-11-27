@@ -80,7 +80,7 @@ interface IConfig {
   CORE_RPC: {
     HOST: string;
     PORT: number;
-    CERT: string;
+    SSL: boolean,
     USERNAME: string;
     PASSWORD: string;
     TIMEOUT: number;
@@ -90,7 +90,7 @@ interface IConfig {
   SECOND_CORE_RPC: {
     HOST: string;
     PORT: number;
-    CERT: string;
+    SSL: boolean;
     USERNAME: string;
     PASSWORD: string;
     TIMEOUT: number;
@@ -223,7 +223,7 @@ const defaults: IConfig = {
   'CORE_RPC': {
     'HOST': '127.0.0.1',
     'PORT': 8332,
-    'CERT': './rpc2.cert',
+    'SSL': false,
     'USERNAME': 'mempool',
     'PASSWORD': 'mempool',
     'TIMEOUT': 60000,
@@ -233,7 +233,7 @@ const defaults: IConfig = {
   'SECOND_CORE_RPC': {
     'HOST': '127.0.0.1',
     'PORT': 8332,
-    'CERT': './rpc2.cert',
+    'SSL': false,
     'USERNAME': 'mempool',
     'PASSWORD': 'mempool',
     'TIMEOUT': 60000,

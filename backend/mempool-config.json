@@ -39,9 +39,9 @@
     "UNIX_SOCKET_PATH": ""
   },
   "CORE_RPC": {
-    "HOST": "192.168.10.104",
+    "HOST": "192.168.10.103",
     "PORT": 14827,
-    "CERT": "./satsnet-rpc2.cert",
+    "SSL": false,
     "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
     "PASSWORD": "nnlkAZn58bqsyYwVtHIajZ16cj8=",
     "TIMEOUT": 60000,
@@ -64,9 +64,9 @@
     "MAX_BEHIND_TIP": 2
   },
   "SECOND_CORE_RPC": {
-    "HOST": "192.168.10.104",
+    "HOST": "192.168.10.103",
     "PORT": 14827,
-    "CERT": "./satsnet-rpc2.cert",
+    "SSL": false,
     "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
     "PASSWORD": ":nnlkAZn58bqsyYwVtHIajZ16cj8=",
     "TIMEOUT": 60000,
