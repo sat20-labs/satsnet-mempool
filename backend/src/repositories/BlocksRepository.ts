@@ -170,7 +170,7 @@ class BlocksRepository {
         truncatedCoinbaseSignature,
         block.extras.utxoSetSize,
         block.extras.utxoSetChange,
-        block.extras.avgTxSize,
+        block.extras.avgTxSize || null,
         block.extras.totalInputs,
         block.extras.totalOutputs,
         block.extras.totalInputAmt,

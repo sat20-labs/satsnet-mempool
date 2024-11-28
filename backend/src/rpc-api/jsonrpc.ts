@@ -19,6 +19,7 @@ JsonRPC.prototype.call = function (method, params) {
       requestJSON = []
       method.forEach(function (batchCall, i) {
         requestJSON.push({
+          jsonrpc: '1.0',
           id: time + '-' + i,
           method: batchCall.method,
           params: batchCall.params
@@ -27,6 +28,7 @@ JsonRPC.prototype.call = function (method, params) {
     } else {
       // single rpc call
       requestJSON = {
+        jsonrpc: '1.0',
         id: time,
         method: method,
         params: params

@@ -323,7 +323,7 @@ class Blocks {
       extras.totalInputAmt = null;
     }
 
-    if (['mainnet', 'testnet', 'signet'].includes(config.MEMPOOL.NETWORK)) {
+    if (['mainnet', 'testnet', 'signet', 'testnet4', 'satsnet', 'satstestnet'].includes(config.MEMPOOL.NETWORK)) {
       let pool: PoolTag;
       if (coinbaseTx !== undefined) {
         pool = await this.$findBlockMiner(coinbaseTx);
@@ -909,13 +909,16 @@ class Blocks {
       const blockHash = await bitcoinCoreApi.$getBlockHash(this.currentBlockHeight);
       const verboseBlock = await bitcoinClient.getBlock(blockHash, 2);
       const block = BitcoinApi.convertBlock(verboseBlock);
-      const txIds: string[] = verboseBlock.tx.map(tx => tx.txid);
+      // const txIds: string[] = verboseBlock.tx.map(tx => tx.txid);
+      const txIds: string[] = verboseBlock.rawtx.map(tx => tx.txid);
       const transactions = await this.$getTransactionsExtended(blockHash, block.height, block.timestamp, false, txIds, false, true) as MempoolTransactionExtended[];
 
       // fill in missing transaction fee data from verboseBlock
       for (let i = 0; i < transactions.length; i++) {
-        if (!transactions[i].fee && transactions[i].txid === verboseBlock.tx[i].txid) {
-          transactions[i].fee = (verboseBlock.tx[i].fee * 100_000_000) || 0;
+        // if (!transactions[i].fee && transactions[i].txid === verboseBlock.tx[i].txid) {
+        if (!transactions[i].fee && transactions[i].txid === verboseBlock.rawtx[i].txid) {
+          // transactions[i].fee = (verboseBlock.tx[i].fee * 100_000_000) || 0;
+          transactions[i].fee = (verboseBlock.rawtx[i].fee * 100_000_000) || 0;
         }
       }
 

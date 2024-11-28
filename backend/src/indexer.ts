@@ -170,7 +170,7 @@ class Indexer {
 
     logger.debug(`Running mining indexer`);
 
-    await this.checkAvailableCoreIndexes();
+    // await this.checkAvailableCoreIndexes(); // TODO: need implementation in satsnet/btcd for getindexinfo rpc api
 
     try {
       const chainValid = await blocks.$generateBlockDatabase();
