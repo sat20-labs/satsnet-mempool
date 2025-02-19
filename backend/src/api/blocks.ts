@@ -1017,7 +1017,8 @@ class Blocks {
         if (['liquid', 'liquidtestnet'].includes(config.MEMPOOL.NETWORK)) {
           this.previousDifficultyRetarget = NaN;
         } else {
-          this.previousDifficultyRetarget = calcBitsDifference(this.currentBits, block.bits);
+          this.previousDifficultyRetarget = 0
+          // this.previousDifficultyRetarget = calcBitsDifference(this.currentBits, block.bits);
         }
         this.lastDifficultyAdjustmentTime = block.timestamp;
         this.currentBits = block.bits;
