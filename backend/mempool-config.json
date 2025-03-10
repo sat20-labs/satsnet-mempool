@@ -54,7 +54,7 @@
     "TLS_ENABLED": false
   },
   "ESPLORA": {
-    "REST_API_URL": "http://192.168.10.212:3000",
+    "REST_API_URL": "http://192.168.10.102:3001",
     "UNIX_SOCKET_PATH": "",
     "BATCH_QUERY_BASE_SIZE": 1000,
     "RETRY_UNIX_SOCKET_AFTER": 30000,

@@ -341,7 +341,37 @@ class ElectrsApi implements AbstractBitcoinApi {
   }
 
   async $getBatchedOutspends(txids: string[]): Promise<IEsploraApi.Outspend[][]> {
-    throw new Error('Method not implemented.');
+    // Based on the Rust implementation, there's a limit of 50 txids per request
+    const MAX_TXIDS_PER_REQUEST = 50;
+
+    if (txids.length === 0) {
+      return [];
+    }
+
+    // If number of txids is small enough, use a single request
+    if (txids.length <= MAX_TXIDS_PER_REQUEST) {
+      return this.failoverRouter.$get<IEsploraApi.Outspend[][]>(
+        `/txs/outspends?txids=${txids.join(',')}`
+      );
+    }
+
+    // Otherwise, chunk the txids and make multiple requests
+    const chunks: string[][] = [];
+    for (let i = 0; i < txids.length; i += MAX_TXIDS_PER_REQUEST) {
+      chunks.push(txids.slice(i, i + MAX_TXIDS_PER_REQUEST));
+    }
+
+    // Execute all requests in parallel
+    const results = await Promise.all(
+      chunks.map(chunk =>
+        this.failoverRouter.$get<IEsploraApi.Outspend[][]>(
+          `/txs/outspends?txids=${chunk.join(',')}`
+        )
+      )
+    );
+
+    // Flatten the results
+    return results.flat();
   }
 
   async $getBatchedOutspendsInternal(txids: string[]): Promise<IEsploraApi.Outspend[][]> {

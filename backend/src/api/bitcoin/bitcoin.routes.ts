@@ -6,6 +6,7 @@ import websocketHandler from '../websocket-handler';
 import mempool from '../mempool';
 import feeApi from '../fee-api';
 import mempoolBlocks from '../mempool-blocks';
+import { esploraApi } from './bitcoin-api-factory';
 import bitcoinApi from './bitcoin-api-factory';
 import { Common } from '../common';
 import backendInfo from '../backend-info';
@@ -138,7 +139,8 @@ class BitcoinRoutes {
     }
 
     try {
-      const batchedOutspends = await bitcoinApi.$getBatchedOutspends(txids);
+      const batchedOutspends = await esploraApi.$getBatchedOutspends(txids);
+      // const batchedOutspends = await bitcoinApi.$getBatchedOutspends(txids);
       res.json(batchedOutspends);
     } catch (e) {
       res.status(500).send(e instanceof Error ? e.message : e);
