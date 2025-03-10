@@ -88,6 +88,18 @@ interface Issuance {
   tokenamountcommitment?: string;
 }
 
+export interface AssetName {
+  Protocol: string
+	Type:     string
+	Ticker:   string
+}
+
+export interface DisplayAsset {
+  Name: AssetName
+  Amount: string;
+  BindingSat: number;
+}
+
 export interface Vout {
   scriptpubkey: string;
   scriptpubkey_asm: string;
@@ -98,6 +110,7 @@ export interface Vout {
   valuecommitment?: number;
   asset?: string;
   pegout?: Pegout;
+  Assets?:  DisplayAsset[];
 }
 
 interface Pegout {

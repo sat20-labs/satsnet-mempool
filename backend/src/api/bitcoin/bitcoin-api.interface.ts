@@ -94,6 +94,18 @@ export namespace IBitcoinApi {
     is_pegin?: boolean;              //  (boolean) Elements peg-in
   }
 
+  export interface AssetName {
+    Protocol: string
+    Type:     string
+    Ticker:   string
+  }
+  
+  export interface DisplayAsset {
+    Name: AssetName
+    Amount: string;
+    BindingSat: number;
+  }
+  
   export interface Vout {
     value: number;                   //  (numeric) The value in BTC
     n: number;                       //  (numeric) index
@@ -109,6 +121,7 @@ export namespace IBitcoinApi {
       pegout_address?: string;       //  (string) Elements peg-out address
       pegout_addresses?: string[];   //  (string) Elements peg-out addresses
     };
+    Assets?: DisplayAsset[];
   }
 
   export interface AddressInformation {

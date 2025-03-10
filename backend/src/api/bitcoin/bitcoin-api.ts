@@ -291,14 +291,16 @@ class BitcoinApi implements AbstractBitcoinApi {
     };
 
     esploraTransaction.vout = transaction.vout.map((vout) => {
-      return {
+      const ret = {
         value: Math.round(vout.value * 100000000),
         scriptpubkey: vout.scriptPubKey.hex,
         scriptpubkey_address: vout.scriptPubKey && vout.scriptPubKey.address ? vout.scriptPubKey.address
           : vout.scriptPubKey.addresses ? vout.scriptPubKey.addresses[0] : '',
         scriptpubkey_asm: vout.scriptPubKey.asm ? transactionUtils.convertScriptSigAsm(vout.scriptPubKey.hex) : '',
         scriptpubkey_type: this.translateScriptPubKeyType(vout.scriptPubKey.type),
+        Assets: vout.Assets
       };
+      return ret;
     });
 
     esploraTransaction.vin = transaction.vin.map((vin) => {

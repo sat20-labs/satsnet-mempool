@@ -220,6 +220,12 @@
                   <div>
                     <app-address-labels [vout]="vout" [channel]="tx._channels && tx._channels.outputs[vindex] ? tx._channels.outputs[vindex] : null"></app-address-labels>
                   </div>
+                  <!-- Display Assets -->
+                  <div *ngIf="vout.Assets && vout.Assets.length > 0" class="display-assets">
+                    <div *ngFor="let asset of vout.Assets" class="asset-item">
+                      {{asset.Name.Protocol}}-{{asset.Name.Type}}-{{asset.Name.Ticker}}:{{asset.Amount}}:{{asset.BindingSat}}
+                    </div>
+                  </div>
                   <ng-template #scriptpubkey_type>
                     <ng-template [ngIf]="vout.pegout" [ngIfElse]="defaultscriptpubkey_type">
                       <ng-container i18n="transactions-list.peg-out-to">Peg-out to <ng-container *ngTemplateOutlet="pegOutLink"></ng-container></ng-container>
