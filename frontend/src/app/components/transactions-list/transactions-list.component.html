@@ -223,7 +223,7 @@
                   <!-- Display Assets -->
                   <div *ngIf="vout.Assets && vout.Assets.length > 0" class="display-assets">
                     <div *ngFor="let asset of vout.Assets" class="asset-item">
-                      {{asset.Name.Protocol}}:{{asset.Name.Type}}:{{asset.Name.Ticker}}-{{asset.Amount}}-{{asset.BindingSat}}
+                      {{asset.Name.Protocol}}:{{asset.Name.Type}}:{{asset.Name.Ticker}} {{asset.Amount}}  ({{asset.BindingSat}})
                     </div>
                   </div>
                   <ng-template #scriptpubkey_type>
