@@ -29,7 +29,14 @@ PROXY_CONFIG = [
         target: "https://mempool.space",
         ws: true,
         secure: false,
-        changeOrigin: true
+        changeOrigin: true,
+        logLevel: 'debug',
+        onProxyReq: (proxyReq, req, res) => {
+            console.log(`[Proxy Request] ${req.method} ${req.url} -> ${proxyReq.method} ${proxyReq.protocol}//${proxyReq.host}${proxyReq.path}`);
+        },
+        onProxyRes: (proxyRes, req, res) => {
+            console.log(`[Proxy Response] ${req.method} ${req.url} <- ${proxyRes.statusCode}`);
+        }
     },
     {
         context: ['/api/v1/ws'],
