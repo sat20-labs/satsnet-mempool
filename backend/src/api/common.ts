@@ -663,8 +663,8 @@ export class Common {
   static indexingEnabled(): boolean {
     return (
       // TODO
-      // ['mainnet', 'testnet', 'signet', 'testnet4'].includes(config.MEMPOOL.NETWORK) &&
-      ['mainnet', 'testnet', 'signet'].includes(config.MEMPOOL.NETWORK) &&
+      // ['mainnet', 'testnet', 'signet', 'satstestnet', 'satsnet', 'testnet4'].includes(config.MEMPOOL.NETWORK) &&
+      ['mainnet', 'testnet', 'signet', 'satstestnet', 'satsnet'].includes(config.MEMPOOL.NETWORK) &&
       config.DATABASE.ENABLED === true &&
       config.MEMPOOL.INDEXING_BLOCKS_AMOUNT !== 0
     );
