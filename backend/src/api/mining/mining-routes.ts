@@ -52,7 +52,7 @@ class MiningRoutes {
       res.header('Pragma', 'public');
       res.header('Cache-control', 'public');
       res.setHeader('Expires', new Date(Date.now() + 1000 * 300).toUTCString());
-      if (['testnet', 'signet', 'liquidtestnet'].includes(config.MEMPOOL.NETWORK)) {
+      if (['testnet', 'signet', 'satstestnet', 'liquidtestnet'].includes(config.MEMPOOL.NETWORK)) {
         res.status(400).send('Prices are not available on testnets.');
         return;
       }

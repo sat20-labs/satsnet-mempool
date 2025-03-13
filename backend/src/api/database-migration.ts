@@ -980,6 +980,7 @@ class DatabaseMigration {
       link varchar(255) NOT NULL,
       addresses text NOT NULL,
       regexes text NOT NULL,
+      slug text NOT NULL,
       PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`;
   }
