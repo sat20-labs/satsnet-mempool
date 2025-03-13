@@ -43,6 +43,7 @@ wait-for-it.sh
 npm-debug.log
 testem.log
 /typings
+*.pid
 
 # e2e
 /e2e/*.js

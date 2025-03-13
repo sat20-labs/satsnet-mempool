@@ -485,7 +485,7 @@ class Mining {
             time: block.time,
             height: block.height,
             difficulty: block.difficulty,
-            adjustment: adjustment,
+            adjustment: adjustment || 0.0,
           });
 
           totalIndexed++;
