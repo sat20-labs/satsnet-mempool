@@ -1,3 +1,5 @@
+import { AscendInfo } from "./common-api.interface";
+
 export namespace IEsploraApi {
   export interface Transaction {
     txid: string;
@@ -11,6 +13,7 @@ export namespace IEsploraApi {
     vout: Vout[];
     status: Status;
     hex?: string;
+    ascendInfo?: AscendInfo;         // for anthor info in satsnet feature
   }
 
   export interface Recent {

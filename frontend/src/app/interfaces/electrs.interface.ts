@@ -1,6 +1,32 @@
 import { Price } from '../services/price.service';
 import { IChannel } from './node-api.interface';
 
+export interface AssetName {
+  Protocol: string
+	Type:     string
+	Ticker:   string
+}
+
+export interface DisplayAsset {
+  Name: AssetName
+  Amount: string;
+  BindingSat: number;
+}
+
+export interface AnchorInfo {
+  utxo: string;          // the utxo with locked in lnd
+  witnessScript: string; // WitnessScript for locked in lnd
+  value: number;         // the amount with locked in lnd
+  txAssets: DisplayAsset[];    // The assets locked
+  sig: string;
+}
+
+export interface AscendInfo extends AnchorInfo {
+  address: string;
+  pubKeyA: string;  // server node
+  pubKeyB: string;  // client node
+}
+
 export interface Transaction {
   txid: string;
   version: number;
@@ -11,6 +37,7 @@ export interface Transaction {
   vin: Vin[];
   vout: Vout[];
   status: Status;
+  ascendInfo?: AscendInfo;         // for anthor info in satsnet feature
 
   // Custom properties
   firstSeen?: number;
@@ -88,17 +115,7 @@ interface Issuance {
   tokenamountcommitment?: string;
 }
 
-export interface AssetName {
-  Protocol: string
-	Type:     string
-	Ticker:   string
-}
 
-export interface DisplayAsset {
-  Name: AssetName
-  Amount: string;
-  BindingSat: number;
-}
 
 export interface Vout {
   scriptpubkey: string;

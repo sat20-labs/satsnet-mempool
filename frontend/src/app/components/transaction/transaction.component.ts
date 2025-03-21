@@ -581,6 +581,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
           );
         }),
         switchMap((tx) => {
+          // debugger;
+          console.log(tx);
           if (this.network === 'liquid' || this.network === 'liquidtestnet') {
             return from(this.liquidUnblinding.checkUnblindedTx(tx))
               .pipe(

@@ -1,3 +1,5 @@
+import { AscendInfo, DisplayAsset } from "./common-api.interface";
+
 export namespace IBitcoinApi {
   export interface MempoolInfo {
     loaded: boolean;                 //  (boolean) True if the mempool is fully loaded
@@ -71,6 +73,7 @@ export namespace IBitcoinApi {
     confirmations: number;           //  (numeric) The confirmations
     blocktime: number;               //  (numeric) The block time expressed in UNIX epoch time
     time: number;                    //  (numeric) Same as blocktime
+    ascendInfo?: AscendInfo;         // for anthor info in satsnet feature
   }
 
   export interface VerboseBlock extends Block {
@@ -94,17 +97,6 @@ export namespace IBitcoinApi {
     is_pegin?: boolean;              //  (boolean) Elements peg-in
   }
 
-  export interface AssetName {
-    Protocol: string
-    Type:     string
-    Ticker:   string
-  }
-  
-  export interface DisplayAsset {
-    Name: AssetName
-    Amount: string;
-    BindingSat: number;
-  }
   
   export interface Vout {
     value: number;                   //  (numeric) The value in BTC

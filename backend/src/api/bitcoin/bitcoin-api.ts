@@ -290,6 +290,10 @@ class BitcoinApi implements AbstractBitcoinApi {
       status: { confirmed: false },
     };
 
+    if (transaction.ascendInfo) {
+      esploraTransaction.ascendInfo = transaction.ascendInfo;
+    }
+
     esploraTransaction.vout = transaction.vout.map((vout) => {
       const ret = {
         value: Math.round(vout.value * 100000000),
