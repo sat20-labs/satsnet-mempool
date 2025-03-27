@@ -113,108 +113,109 @@ class BlocksRepository {
       if (!poolDbId) {
         throw Error(`Could not find a mining pool with the unique_id = ${block.extras.pool.id}. This error should never be printed.`);
       }
-
+      let query = ""
       try {
-        // let query = `INSERT INTO blocks(
-        //   height,             hash,                blockTimestamp,    size,
-        //   weight,             tx_count,            coinbase_raw,      difficulty,
-        //   pool_id,            fees,                fee_span,          median_fee,
-        //   reward,             version,             bits,              nonce,
-        //   merkle_root,        previous_block_hash, avg_fee,           avg_fee_rate,
-        //   median_timestamp,   header,              coinbase_address,  coinbase_addresses,
-        //   coinbase_signature, utxoset_size,        utxoset_change,    avg_tx_size,
-        //   total_inputs,       total_outputs,       total_input_amt,   total_output_amt,
-        //   fee_percentiles,    segwit_total_txs,    segwit_total_size, segwit_total_weight,
-        //   median_fee_amt,     coinbase_signature_ascii
-        // ) VALUE (
-        //   ?, ?, FROM_UNIXTIME(?), ?,
-        //   ?, ?, ?, ?,
-        //   ?, ?, ?, ?,
-        //   ?, ?, ?, ?,
-        //   ?, ?, ?, ?,
-        //   FROM_UNIXTIME(?), ?, ?, ?,
-        //   ?, ?, ?, ?,
-        //   ?, ?, ?, ?,
-        //   ?, ?, ?, ?,
-        //   ?, ?
-        // )`;
+        query = `INSERT INTO blocks(
+          height,             hash,                blockTimestamp,    size,
+          weight,             tx_count,            coinbase_raw,      difficulty,
+          pool_id,            fees,                fee_span,          median_fee,
+          reward,             version,             bits,              nonce,
+          merkle_root,        previous_block_hash, avg_fee,           avg_fee_rate,
+          median_timestamp,   header,              coinbase_address,  coinbase_addresses,
+          coinbase_signature, utxoset_size,        utxoset_change,    avg_tx_size,
+          total_inputs,       total_outputs,       total_input_amt,   total_output_amt,
+          fee_percentiles,    segwit_total_txs,    segwit_total_size, segwit_total_weight,
+          median_fee_amt,     coinbase_signature_ascii
+        ) VALUE (
+          ?, ?, FROM_UNIXTIME(?), ?,
+          ?, ?, ?, ?,
+          ?, ?, ?, ?,
+          ?, ?, ?, ?,
+          ?, ?, ?, ?,
+          FROM_UNIXTIME(?), ?, ?, ?,
+          ?, ?, ?, ?,
+          ?, ?, ?, ?,
+          ?, ?, ?, ?,
+          ?, ?
+        )`;
 
-      // const params: any[] = [
-      //   block.height,
-      //   block.id,
-      //   block.timestamp,
-      //   block.size,
-      //   block.weight,
-      //   block.tx_count || 0,
-      //   block.extras.coinbaseRaw,
-      //   block.difficulty,
-      //   poolDbId.id,
-      //   block.extras.totalFees || 0,
-      //   JSON.stringify(block.extras.feeRange),
-      //   block.extras.medianFee,
-      //   block.extras.reward,
-      //   block.version,
-      //   block.bits,
-      //   block.nonce,
-      //   block.merkle_root,
-      //   block.previousblockhash,
-      //   block.extras.avgFee,
-      //   block.extras.avgFeeRate,
-      //   block.mediantime,
-      //   block.extras.header,
-      //   block.extras.coinbaseAddress,
-      //   block.extras.coinbaseAddresses ? JSON.stringify(block.extras.coinbaseAddresses) : null,
-      //   truncatedCoinbaseSignature,
-      //   block.extras.utxoSetSize,
-      //   block.extras.utxoSetChange,
-      //   block.extras.avgTxSize,
-      //   block.extras.totalInputs,
-      //   block.extras.totalOutputs,
-      //   block.extras.totalInputAmt,
-      //   block.extras.totalOutputAmt,
-      //   block.extras.feePercentiles ? JSON.stringify(block.extras.feePercentiles) : null,
-      //   block.extras.segwitTotalTxs,
-      //   block.extras.segwitTotalSize,
-      //   block.extras.segwitTotalWeight,
-      //   block.extras.medianFeeAmt,
-      //   truncatedCoinbaseSignatureAscii,
-      // ];
+      const params: any[] = [
+        block.height,
+        block.id,
+        block.timestamp,
+        block.size,
+        block.weight,
+        block.tx_count || 0,
+        block.extras.coinbaseRaw,
+        block.difficulty,
+        poolDbId.id,
+        block.extras.totalFees || 0,
+        JSON.stringify(block.extras.feeRange),
+        block.extras.medianFee || 0,
+        block.extras.reward,
+        block.version,
+        block.bits,
+        block.nonce,
+        block.merkle_root,
+        block.previousblockhash,
+        block.extras.avgFee,
+        block.extras.avgFeeRate,
+        block.mediantime || null,
+        block.extras.header,
+        block.extras.coinbaseAddress,
+        block.extras.coinbaseAddresses ? JSON.stringify(block.extras.coinbaseAddresses) : null,
+        truncatedCoinbaseSignature || null,
+        block.extras.utxoSetSize,
+        block.extras.utxoSetChange,
+        block.extras.avgTxSize || 0,
+        block.extras.totalInputs,
+        block.extras.totalOutputs,
+        block.extras.totalInputAmt,
+        block.extras.totalOutputAmt,
+        block.extras.feePercentiles ? JSON.stringify(block.extras.feePercentiles) : null,
+        block.extras.segwitTotalTxs,
+        block.extras.segwitTotalSize,
+        block.extras.segwitTotalWeight,
+        block.extras.medianFeeAmt || 0,
+        truncatedCoinbaseSignatureAscii || null,
+      ];
 
-      const query = `
-      INSERT INTO blocks (
-        height, hash, blockTimestamp, size,
-        weight, tx_count, coinbase_raw, difficulty,
-        pool_id, fees, fee_span, median_fee,
-        reward, version, bits, nonce,
-        merkle_root, previous_block_hash, avg_fee, avg_fee_rate,
-        median_timestamp, header, coinbase_address, coinbase_addresses,
-        coinbase_signature, utxoset_size, utxoset_change, avg_tx_size,
-        total_inputs, total_outputs, total_input_amt, total_output_amt,
-        fee_percentiles, segwit_total_txs, segwit_total_size, segwit_total_weight,
-        median_fee_amt, coinbase_signature_ascii
-      ) VALUES (
-        ${block.height}, '${block.id}', FROM_UNIXTIME(${block.timestamp}), ${block.size},
-        ${block.weight}, ${block.tx_count || 0}, '${block.extras.coinbaseRaw}', ${block.difficulty},
-        ${poolDbId.id}, ${block.extras.totalFees || 0}, '${JSON.stringify(block.extras.feeRange)}', ${block.extras.medianFee || 0},
-        ${block.extras.reward}, ${block.version}, ${block.bits}, ${block.nonce},
-        '${block.merkle_root}', '${block.previousblockhash}', ${block.extras.avgFee}, ${block.extras.avgFeeRate},
-        ${block.mediantime ? `FROM_UNIXTIME(${block.mediantime})` : 'NULL'}, '${block.extras.header}', '${block.extras.coinbaseAddress}', ${block.extras.coinbaseAddresses ? `'${JSON.stringify(block.extras.coinbaseAddresses)}'` : null},
-        ${truncatedCoinbaseSignature ? `'${truncatedCoinbaseSignature}'` : 'NULL'}, ${block.extras.utxoSetSize}, ${block.extras.utxoSetChange}, ${block.extras.avgTxSize || 0},
-        ${block.extras.totalInputs}, ${block.extras.totalOutputs}, ${block.extras.totalInputAmt}, ${block.extras.totalOutputAmt},
-        ${block.extras.feePercentiles ? `'${JSON.stringify(block.extras.feePercentiles)}'` : null},
-        ${block.extras.segwitTotalTxs}, ${block.extras.segwitTotalSize}, ${block.extras.segwitTotalWeight},
-        ${block.extras.medianFeeAmt || 0}, ${truncatedCoinbaseSignatureAscii ? `'${truncatedCoinbaseSignatureAscii}'` : 'NULL'}
-      )
-    `;
+    //   query = `
+    //   INSERT INTO blocks (
+    //     height, hash, blockTimestamp, size,
+    //     weight, tx_count, coinbase_raw, difficulty,
+    //     pool_id, fees, fee_span, median_fee,
+    //     reward, version, bits, nonce,
+    //     merkle_root, previous_block_hash, avg_fee, avg_fee_rate,
+    //     median_timestamp, header, coinbase_address, coinbase_addresses,
+    //     coinbase_signature, utxoset_size, utxoset_change, avg_tx_size,
+    //     total_inputs, total_outputs, total_input_amt, total_output_amt,
+    //     fee_percentiles, segwit_total_txs, segwit_total_size, segwit_total_weight,
+    //     median_fee_amt, coinbase_signature_ascii
+    //   ) VALUES (
+    //     ${block.height}, '${block.id}', FROM_UNIXTIME(${block.timestamp}), ${block.size},
+    //     ${block.weight}, ${block.tx_count || 0}, '${block.extras.coinbaseRaw}', ${block.difficulty},
+    //     ${poolDbId.id}, ${block.extras.totalFees || 0}, '${JSON.stringify(block.extras.feeRange)}', ${block.extras.medianFee || 0},
+    //     ${block.extras.reward}, ${block.version}, ${block.bits}, ${block.nonce},
+    //     '${block.merkle_root}', '${block.previousblockhash}', ${block.extras.avgFee}, ${block.extras.avgFeeRate},
+    //     ${block.mediantime ? `FROM_UNIXTIME(${block.mediantime})` : 'NULL'}, '${block.extras.header}', '${block.extras.coinbaseAddress}', ${block.extras.coinbaseAddresses ? `'${JSON.stringify(block.extras.coinbaseAddresses)}'` : null},
+    //     ${truncatedCoinbaseSignature ? `'${truncatedCoinbaseSignature}'` : 'NULL'}, ${block.extras.utxoSetSize}, ${block.extras.utxoSetChange}, ${block.extras.avgTxSize || 0},
+    //     ${block.extras.totalInputs}, ${block.extras.totalOutputs}, ${block.extras.totalInputAmt}, ${block.extras.totalOutputAmt},
+    //     ${block.extras.feePercentiles ? `'${JSON.stringify(block.extras.feePercentiles)}'` : null},
+    //     ${block.extras.segwitTotalTxs}, ${block.extras.segwitTotalSize}, ${block.extras.segwitTotalWeight},
+    //     ${block.extras.medianFeeAmt || 0}, ${truncatedCoinbaseSignatureAscii ? `'${truncatedCoinbaseSignatureAscii}'` : 'NULL'}
+    //   )
+    // `;
 
-    // console.log(query);
-    await DB.query(query);
+    
+    // await DB.query(query);
 
-      // await DB.query(query, params);
+    await DB.query(query, params);
     } catch (e: any) {
       if (e.errno === 1062) { // ER_DUP_ENTRY - This scenario is possible upon node backend restart
         logger.debug(`$saveBlockInDatabase() - Block ${block.height} has already been indexed, ignoring`, logger.tags.mining);
       } else {
+        console.log(query);
         logger.err('Cannot save indexed block into db. Reason: ' + (e instanceof Error ? e.message : e), logger.tags.mining);
         throw e;
       }

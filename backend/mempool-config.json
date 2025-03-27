@@ -39,7 +39,7 @@
     "UNIX_SOCKET_PATH": ""
   },
   "CORE_RPC": {
-    "HOST": "192.168.10.102",
+    "HOST": "192.168.10.103",
     "PORT": 19527,
     "SSL": false,
     "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",

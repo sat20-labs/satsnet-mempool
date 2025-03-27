@@ -996,7 +996,7 @@ class Blocks {
         if (Common.indexingEnabled()) {
           let adjustment;
           if (['liquid', 'liquidtestnet'].includes(config.MEMPOOL.NETWORK)) {
-            adjustment = NaN;
+            adjustment = 0;
           } else {
             adjustment = Math.round(
               // calcBitsDifference returns +- percentage, +100 returns to positive, /100 returns to ratio.
