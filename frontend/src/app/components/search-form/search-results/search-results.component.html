@@ -31,7 +31,7 @@
   </ng-template>
   <ng-template [ngIf]="results.blockHash">
     <div class="card-title" i18n="search.bitcoin-block">{{ networkName }} Block</div>
-    <button (click)="clickItem(0)" [class.active]="0 === activeIdx" type="button" role="option" class="dropdown-item">
+    <button (click)="clickItemBlockHash(0)" [class.active]="0 === activeIdx" type="button" role="option" class="dropdown-item">
       <ng-container *ngTemplateOutlet="goTo; context: { $implicit: results.searchText | shortenString : 13 }"></ng-container>
     </button>
   </ng-template>
@@ -68,13 +68,19 @@
       </button>
     </ng-template>
   </ng-template>
-  <ng-template [ngIf]="results.otherNetworks.length">
+  <!-- <ng-template [ngIf]="results.otherNetworks.length">
     <div class="card-title danger" i18n="search.other-networks">Other Network Address</div>
     <ng-template ngFor [ngForOf]="results.otherNetworks" let-otherNetwork let-i="index">
       <button (click)="clickItem(results.hashQuickMatch + results.addresses.length + results.pools.length + results.nodes.length + results.channels.length + i)" [class.active]="(results.hashQuickMatch + results.addresses.length + results.pools.length + results.nodes.length + results.channels.length + i) === activeIdx" [class.inactive]="!otherNetwork.isNetworkAvailable" type="button" role="option" class="dropdown-item">
         <ng-container *ngTemplateOutlet="goTo; context: { $implicit: otherNetwork.address | shortenString : isMobile ? 12 : 20 }"></ng-container>&nbsp;<b>({{ otherNetwork.network.charAt(0).toUpperCase() + otherNetwork.network.slice(1) }})</b>
       </button>
     </ng-template>
+  </ng-template> -->
+  <ng-template [ngIf]="results.otherNetworks.length">
+    <div class="card-title danger" i18n="search.bitcoin-addresses">Network Address</div>
+    <button (click)="clickItem(results.hashQuickMatch + results.addresses.length + results.pools.length + results.nodes.length + results.channels.length)" [class.active]="(results.hashQuickMatch + results.addresses.length + results.pools.length + results.nodes.length + results.channels.length) === activeIdx" [class.inactive]="!results.otherNetworks[0].isNetworkAvailable" type="button" role="option" class="dropdown-item">
+      <ng-container *ngTemplateOutlet="goTo; context: { $implicit: results.otherNetworks[0].address | shortenString : isMobile ? 12 : 20 }"></ng-container>
+    </button>
   </ng-template>
   <ng-template [ngIf]="results.address && results.publicKey">
     <div class="card-title" i18n="search.bitcoin-address">{{ networkName }} Address</div>

@@ -220,7 +220,7 @@ export function getRegex(type: RegexType, network?: Network): RegExp {
       let leadingZeroes: number;
       switch (network) {
         case `mainnet`:
-          leadingZeroes = 8; // Assumes at least 32 bits of difficulty
+          leadingZeroes = 0; // Assumes at least 32 bits of difficulty
           break;
         case `testnet`:
           leadingZeroes = 8; // Assumes at least 32 bits of difficulty

@@ -192,7 +192,8 @@ export class SearchFormComponent implements OnInit {
           const matchesBlockHeight = this.regexBlockheight.test(searchText) && parseInt(searchText) <= this.stateService.latestBlockHeight;
           const matchesDateTime = this.regexDate.test(searchText) && new Date(searchText).toString() !== 'Invalid Date' && new Date(searchText).getTime() <= Date.now() && isNetworkBitcoin;
           const matchesUnixTimestamp = this.regexUnixTimestamp.test(searchText) && parseInt(searchText) <= Math.floor(Date.now() / 1000) && isNetworkBitcoin;
-          const matchesTxId = this.regexTransaction.test(searchText) && !this.regexBlockhash.test(searchText);
+          const matchesTxId = this.regexTransaction.test(searchText);
+          // const matchesTxId = this.regexTransaction.test(searchText) && !this.regexBlockhash.test(searchText);
           const matchesBlockHash = this.regexBlockhash.test(searchText);
           const matchesAddress = !matchesTxId && this.regexAddress.test(searchText);
           const publicKey = matchesAddress && searchText.startsWith('0');
@@ -239,7 +240,13 @@ export class SearchFormComponent implements OnInit {
 
   selectedResult(result: any): void {
     if (typeof result === 'string') {
-      this.search(result);
+      const searchText = result || this.searchForm.value.searchText.trim();
+      if (searchText.startsWith('blockhash:')) {
+        const blockHash = searchText.replace('blockhash:', '');
+        this.navigate('/block/', blockHash);
+      } else {
+        this.search(result);
+      }
     } else if (typeof result === 'number' && result <= this.stateService.latestBlockHeight) {
       this.navigate('/block/', result.toString());
     } else if (result.alias) {
@@ -248,7 +255,8 @@ export class SearchFormComponent implements OnInit {
       this.navigate('/lightning/channel/', result.id);
     } else if (result.network) {
       if (result.isNetworkAvailable) {
-        this.navigate('/address/', result.address, undefined, result.network);
+        this.navigate('/address/', result.address);
+        // this.navigate('/address/', result.address, undefined, result.network);
       } else {
         this.searchForm.setValue({
           searchText: '',
@@ -267,10 +275,6 @@ export class SearchFormComponent implements OnInit {
 
       if (!this.regexTransaction.test(searchText) && this.regexAddress.test(searchText)) {
         this.navigate('/address/', searchText);
-      } else if (this.regexBlockhash.test(searchText)) {
-        this.navigate('/block/', searchText);
-      } else if (this.regexBlockheight.test(searchText)) {
-        parseInt(searchText) <= this.stateService.latestBlockHeight ? this.navigate('/block/', searchText) : this.isSearching = false;
       } else if (this.regexTransaction.test(searchText)) {
         const matches = this.regexTransaction.exec(searchText);
         if (this.network === 'liquid' || this.network === 'liquidtestnet') {
@@ -290,6 +294,11 @@ export class SearchFormComponent implements OnInit {
         } else {
           this.navigate('/tx/', matches[0]);
         }
+      }
+      else if (this.regexBlockhash.test(searchText)) {
+        this.navigate('/block/', searchText);
+      } else if (this.regexBlockheight.test(searchText)) {
+        parseInt(searchText) <= this.stateService.latestBlockHeight ? this.navigate('/block/', searchText) : this.isSearching = false;
       } else if (this.regexDate.test(searchText) || this.regexUnixTimestamp.test(searchText)) {
         let timestamp: number;
         this.regexDate.test(searchText) ? timestamp = Math.floor(new Date(searchText).getTime() / 1000) : timestamp = searchText;

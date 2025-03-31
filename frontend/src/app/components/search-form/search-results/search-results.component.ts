@@ -72,6 +72,11 @@ export class SearchResultsComponent implements OnChanges {
     this.results = null;
   }
 
+  clickItemBlockHash(id: number) {
+    this.selectedResult.emit('blockhash:' + this.resultsFlattened[id]);
+    this.results = null;
+  }
+
   next() {
     if (this.activeIdx === this.resultsFlattened.length - 1) {
       this.activeIdx = this.focusFirst ? (this.activeIdx + 1) % this.resultsFlattened.length : -1;
