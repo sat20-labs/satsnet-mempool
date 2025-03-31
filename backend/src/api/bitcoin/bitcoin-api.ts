@@ -373,7 +373,11 @@ class BitcoinApi implements AbstractBitcoinApi {
     } else {
       mempoolEntry = await this.$getMempoolEntry(transaction.txid);
     }
-    transaction.fee = Math.round(mempoolEntry.fees.base * 100000000);
+    // TODO: fix for satsnet
+    transaction.fee = 0
+    if (mempoolEntry.fees && mempoolEntry.fees.base) {
+      transaction.fee = Math.round(mempoolEntry.fees.base * 100000000);
+    }
     return transaction;
   }
 
