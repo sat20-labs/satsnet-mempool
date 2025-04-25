@@ -39,7 +39,7 @@
     "UNIX_SOCKET_PATH": ""
   },
   "CORE_RPC": {
-    "HOST": "192.168.10.102",
+    "HOST": "192.168.10.101",
     "PORT": 19527,
     "SSL": false,
     "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
@@ -49,12 +49,12 @@
     "COOKIE_PATH": ""
   },
   "ELECTRUM": {
-    "HOST": "192.168.10.102",
+    "HOST": "192.168.10.101",
     "PORT": 30001,
     "TLS_ENABLED": false
   },
   "ESPLORA": {
-    "REST_API_URL": "http://192.168.10.102:3001",
+    "REST_API_URL": "http://192.168.10.101:3001",
     "UNIX_SOCKET_PATH": "",
     "BATCH_QUERY_BASE_SIZE": 1000,
     "RETRY_UNIX_SOCKET_AFTER": 30000,
@@ -68,7 +68,7 @@
     "PORT": 19527,
     "SSL": false,
     "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
-    "PASSWORD": ":nnlkAZn58bqsyYwVtHIajZ16cj8=",
+    "PASSWORD": "nnlkAZn58bqsyYwVtHIajZ16cj8=",
     "TIMEOUT": 60000,
     "COOKIE": false,
     "COOKIE_PATH": ""
@@ -78,7 +78,7 @@
     "HOST": "192.168.10.103",
     "PORT": 3306,
     "SOCKET": "",
-    "DATABASE": "mempool",
+    "DATABASE": "mempool-test-testnet",
     "USERNAME": "root",
     "PASSWORD": "tinyverse",
     "TIMEOUT": 180000,
