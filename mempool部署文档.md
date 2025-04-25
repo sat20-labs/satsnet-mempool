@@ -80,4 +80,7 @@ mole start remote --verbose --source 103.103.245.177:4201 --destination 127.0.0.
 # supervisorctl update
 # supervisorctl reread
 # supervisorctl stop satsnet-romanz-electrs
+# supervisorctl start satsnet-romanz-electrs
+# supervisorctl stop satsnet-mempool-electrs
+# supervisorctl start satsnet-mempool-electrs
 ```
