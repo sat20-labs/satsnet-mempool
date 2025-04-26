@@ -994,7 +994,7 @@ class Blocks {
 
       if (block.height % 2016 === 0) {
         if (Common.indexingEnabled()) {
-          let adjustment = 0;
+          let adjustment = 0.1;
           // if (['liquid', 'liquidtestnet'].includes(config.MEMPOOL.NETWORK)) {
           //   adjustment = 0;
           // } else {
