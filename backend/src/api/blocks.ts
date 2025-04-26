@@ -994,16 +994,16 @@ class Blocks {
 
       if (block.height % 2016 === 0) {
         if (Common.indexingEnabled()) {
-          let adjustment = 0.1;
-          // if (['liquid', 'liquidtestnet'].includes(config.MEMPOOL.NETWORK)) {
-          //   adjustment = 0;
-          // } else {
-          //   adjustment = Math.round(
-          //     // calcBitsDifference returns +- percentage, +100 returns to positive, /100 returns to ratio.
-          //     // Instead of actually doing /100, just reduce the multiplier.
-          //     (calcBitsDifference(this.currentBits, block.bits) + 100) * 10000
-          //   ) / 1000000; // Remove float point noise
-          // }
+          let adjustment;
+          if (['liquid', 'liquidtestnet'].includes(config.MEMPOOL.NETWORK)) {
+            adjustment = 0;
+          } else {
+            adjustment = Math.round(
+              // calcBitsDifference returns +- percentage, +100 returns to positive, /100 returns to ratio.
+              // Instead of actually doing /100, just reduce the multiplier.
+              (calcBitsDifference(this.currentBits, block.bits) + 100) * 10000
+            ) / 1000000; // Remove float point noise
+          }
 
           await DifficultyAdjustmentsRepository.$saveAdjustments({
             time: block.timestamp,
