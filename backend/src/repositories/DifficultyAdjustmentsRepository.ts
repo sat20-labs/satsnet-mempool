@@ -8,7 +8,7 @@ class DifficultyAdjustmentsRepository {
     if (adjustment.height === 1) {
       return;
     }
-
+    adjustment.adjustment = 0;
     try {
       const query = `INSERT INTO difficulty_adjustments(time, height, difficulty, adjustment) VALUE (FROM_UNIXTIME(?), ?, ?, ?)`;
       const params: any[] = [

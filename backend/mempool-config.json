@@ -1,7 +1,7 @@
 {
   "MEMPOOL": {
     "OFFICIAL": false,
-    "NETWORK": "satstestnet",
+    "NETWORK": "satsnet",
     "BACKEND": "electrum",
     "ENABLED": true,
     "HTTP_PORT": 8999,
@@ -40,7 +40,7 @@
   },
   "CORE_RPC": {
     "HOST": "192.168.10.101",
-    "PORT": 19527,
+    "PORT": 9527,
     "SSL": false,
     "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
     "PASSWORD": "nnlkAZn58bqsyYwVtHIajZ16cj8=",
@@ -50,11 +50,11 @@
   },
   "ELECTRUM": {
     "HOST": "192.168.10.101",
-    "PORT": 30001,
+    "PORT": 31001,
     "TLS_ENABLED": false
   },
   "ESPLORA": {
-    "REST_API_URL": "http://192.168.10.101:3001",
+    "REST_API_URL": "http://192.168.10.101:3101",
     "UNIX_SOCKET_PATH": "",
     "BATCH_QUERY_BASE_SIZE": 1000,
     "RETRY_UNIX_SOCKET_AFTER": 30000,
@@ -64,8 +64,8 @@
     "MAX_BEHIND_TIP": 2
   },
   "SECOND_CORE_RPC": {
-    "HOST": "192.168.10.102",
-    "PORT": 19527,
+    "HOST": "192.168.10.101",
+    "PORT": 9527,
     "SSL": false,
     "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
     "PASSWORD": "nnlkAZn58bqsyYwVtHIajZ16cj8=",
@@ -78,7 +78,7 @@
     "HOST": "192.168.10.103",
     "PORT": 3306,
     "SOCKET": "",
-    "DATABASE": "mempool-test-testnet",
+    "DATABASE": "mempool_satsnet2",
     "USERNAME": "root",
     "PASSWORD": "tinyverse",
     "TIMEOUT": 180000,
