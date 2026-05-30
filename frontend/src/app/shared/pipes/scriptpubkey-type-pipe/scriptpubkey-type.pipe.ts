@@ -13,6 +13,8 @@ export class ScriptpubkeyTypePipe implements PipeTransform {
         return 'P2PK';
       case 'op_return':
         return 'OP_RETURN';
+      case 'contract':
+        return $localize`Contract`;
       default:
         return value.toUpperCase();
     }

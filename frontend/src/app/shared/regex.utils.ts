@@ -39,11 +39,11 @@ const ADDRESS_CHARS: {
       // Version byte 0x00 (P2PKH) can be as short as 27 characters, up to 34 length
       // P2SH must be 34 length
     bech32: `(?:`
-        + `bc1` // Starts with bc1
+        + `(?:bc1|ca1)` // Starts with bc1 or SatoshiNet contract ca1
         + BECH32_CHARS_LW
         + `{6,100}` // As per bech32, 6 char checksum is minimum
       + `|`
-        + `BC1` // All upper case version
+        + `(?:BC1|CA1)` // All upper case version
         + BECH32_CHARS_UP
         + `{6,100}`
       + `)`,
@@ -53,11 +53,11 @@ const ADDRESS_CHARS: {
       + BASE58_CHARS
       + `{33,34}`, // m|n is 34 length, 2 is 35 length (We match the first letter separately)
     bech32: `(?:`
-        + `tb1` // Starts with tb1
+        + `(?:tb1|tc1)` // Starts with tb1 or SatoshiNet contract tc1
         + BECH32_CHARS_LW
         + `{6,100}` // As per bech32, 6 char checksum is minimum
       + `|`
-        + `TB1` // All upper case version
+        + `(?:TB1|TC1)` // All upper case version
         + BECH32_CHARS_UP
         + `{6,100}`
       + `)`,
@@ -67,11 +67,11 @@ const ADDRESS_CHARS: {
       + BASE58_CHARS
       + `{33,34}`, // m|n is 34 length, 2 is 35 length (We match the first letter separately)
     bech32: `(?:`
-        + `tb1` // Starts with tb1
+        + `(?:tb1|tc1)` // Starts with tb1 or SatoshiNet contract tc1
         + BECH32_CHARS_LW
         + `{6,100}` // As per bech32, 6 char checksum is minimum
       + `|`
-        + `TB1` // All upper case version
+        + `(?:TB1|TC1)` // All upper case version
         + BECH32_CHARS_UP
         + `{6,100}`
       + `)`,
@@ -81,11 +81,11 @@ const ADDRESS_CHARS: {
       + BASE58_CHARS
       + `{33,34}`,
     bech32: `(?:`
-        + `tb1` // Starts with tb1
+        + `(?:tb1|tc1)` // Starts with tb1 or SatoshiNet contract tc1
         + BECH32_CHARS_LW
         + `{6,100}`
       + `|`
-        + `TB1` // All upper case version
+        + `(?:TB1|TC1)` // All upper case version
         + BECH32_CHARS_UP
         + `{6,100}`
       + `)`,

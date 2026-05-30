@@ -44,7 +44,7 @@ export function calcBitsDifference(oldBits: number, newBits: number): number {
       (bits & 0x00800000) !== 0 ||
       (bits & 0x007fffff) === 0
     ) {
-      // throw new Error('Invalid bits');
+     // throw new Error('Invalid bits');
     }
   };
   verifyBits(oldBits);

@@ -108,6 +108,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   retryLoadMore = false;
   error: any;
   mainSubscription: Subscription;
+  networkSubscription: Subscription;
   mempoolTxSubscription: Subscription;
   mempoolRemovedTxSubscription: Subscription;
   blockTxSubscription: Subscription;
@@ -139,7 +140,10 @@ export class AddressComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.stateService.networkChanged$.subscribe((network) => this.network = network);
+    this.networkSubscription = this.stateService.networkChanged$.subscribe((network) => {
+      this.network = network;
+      this.refreshAddressTypeInfo();
+    });
     this.websocketService.want(['blocks']);
 
     this.onResize();
@@ -169,7 +173,7 @@ export class AddressComponent implements OnInit, OnDestroy {
           this.seoService.setTitle($localize`:@@address.component.browser-title:Address: ${this.addressString}:INTERPOLATION:`);
           this.seoService.setDescription($localize`:@@meta.description.bitcoin.address:See mempool transactions, confirmed transactions, balance, and more for ${this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'Bitcoin'}${seoDescriptionNetwork(this.stateService.network)} address ${this.addressString}:INTERPOLATION:.`);
 
-          this.addressTypeInfo = new AddressTypeInfo(this.stateService.network || 'mainnet', this.addressString);
+          this.refreshAddressTypeInfo();
 
           return merge(
             of(true),
@@ -382,6 +386,14 @@ export class AddressComponent implements OnInit, OnDestroy {
     this.mempoolStats = new AddressStats(this.address.mempool_stats, this.address.address);
   }
 
+  private refreshAddressTypeInfo(): void {
+    if (!this.addressString) {
+      return;
+    }
+    const network = this.network || this.stateService.network || 'mainnet';
+    this.addressTypeInfo = new AddressTypeInfo(network, this.addressString);
+  }
+
   setBalancePeriod(period: 'all' | '1m'): boolean {
     this.balancePeriod = period;
     return false;
@@ -401,6 +413,7 @@ export class AddressComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mainSubscription.unsubscribe();
+    this.networkSubscription.unsubscribe();
     this.mempoolTxSubscription.unsubscribe();
     this.mempoolRemovedTxSubscription.unsubscribe();
     this.blockTxSubscription.unsubscribe();

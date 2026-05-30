@@ -16,6 +16,7 @@ export type AddressType = 'fee'
   | 'v0_p2wpkh'
   | 'v0_p2wsh'
   | 'v1_p2tr'
+  | 'contract'
   | 'confidential'
   | 'unknown'
 
@@ -26,6 +27,7 @@ const ADDRESS_PREFIXES = {
       script: ['3'],
     },
     bech32: 'bc1',
+    contract: 'ca1',
   },
   testnet: {
     base58: {
@@ -33,6 +35,7 @@ const ADDRESS_PREFIXES = {
       script: '2',
     },
     bech32: 'tb1',
+    contract: 'tc1',
   },
   testnet4: {
     base58: {
@@ -40,6 +43,7 @@ const ADDRESS_PREFIXES = {
       script: '2',
     },
     bech32: 'tb1',
+    contract: 'tc1',
   },
   signet: {
     base58: {
@@ -47,6 +51,7 @@ const ADDRESS_PREFIXES = {
       script: '2',
     },
     bech32: 'tb1',
+    contract: 'tc1',
   },
   liquid: {
     base58: {
@@ -79,6 +84,11 @@ const pubkeyRegex = RegExp('^' + `(04${HEX_CHARS}{128})|(0[23]${HEX_CHARS}{64})$
 export function detectAddressType(address: string, network: string): AddressType {
   // normal address types
   const firstChar = address.substring(0, 1);
+  const contractPrefix = (ADDRESS_PREFIXES[network] as { contract?: string }).contract;
+  if (contractPrefix && address.startsWith(contractPrefix)) {
+    return 'contract';
+  }
+
   if (ADDRESS_PREFIXES[network].base58.pubkey.includes(firstChar) && base58Regex.test(address.slice(1))) {
     return 'p2pkh';
   } else if (ADDRESS_PREFIXES[network].base58.script.includes(firstChar) && base58Regex.test(address.slice(1))) {

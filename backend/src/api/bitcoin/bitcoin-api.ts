@@ -350,7 +350,8 @@ class BitcoinApi implements AbstractBitcoinApi {
       'witness_v1_taproot': 'v1_p2tr',
       'nonstandard': 'nonstandard',
       'multisig': 'multisig',
-      'nulldata': 'op_return'
+      'nulldata': 'op_return',
+      'contract': 'contract'
     };
 
     if (map[outputType]) {
