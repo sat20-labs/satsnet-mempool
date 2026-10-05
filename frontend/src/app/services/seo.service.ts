@@ -88,7 +88,7 @@ export class SeoService {
 
   getTitle(): string {
     if (this.network === 'testnet')
-      return this.baseTitle + ' - Bitcoin Testnet3';
+      return this.baseTitle + ' - SatoshiNet Testnet';
     if (this.network === 'testnet4')
       return this.baseTitle + ' - Bitcoin Testnet4';
     if (this.network === 'signet')
