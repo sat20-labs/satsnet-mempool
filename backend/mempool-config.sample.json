@@ -25,7 +25,7 @@
     "USER_AGENT": "mempool",
     "STDOUT_LOG_MIN_PRIORITY": "debug",
     "AUTOMATIC_POOLS_UPDATE": false,
-    "POOLS_JSON_URL": "https://raw.githubusercontent.com/mempool/mining-pools/master/pools-v2.json",
+    "POOLS_JSON_URL": "https://github.com/mempool/mining-pools/blob/master/pools-v2.json",
     "POOLS_JSON_TREE_URL": "https://api.github.com/repos/mempool/mining-pools/git/trees/master",
     "AUDIT": false,
     "RUST_GBT": true,
@@ -40,21 +40,22 @@
   },
   "CORE_RPC": {
     "HOST": "127.0.0.1",
-    "PORT": 8332,
-    "USERNAME": "mempool",
-    "PASSWORD": "mempool",
+    "PORT": 9527,
+    "SSL": false,
+    "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
+    "PASSWORD": "nnlkAZn58bqsyYwVtHIajZ16cj8=",
     "TIMEOUT": 60000,
     "COOKIE": false,
-    "COOKIE_PATH": "/path/to/bitcoin/.cookie"
+    "COOKIE_PATH": ""
   },
   "ELECTRUM": {
     "HOST": "127.0.0.1",
-    "PORT": 50002,
-    "TLS_ENABLED": true
+    "PORT": 30001,
+    "TLS_ENABLED": false
   },
   "ESPLORA": {
-    "REST_API_URL": "http://127.0.0.1:3000",
-    "UNIX_SOCKET_PATH": "/tmp/esplora-bitcoin-mainnet",
+    "REST_API_URL": "http://192.168.1.101:3001",
+    "UNIX_SOCKET_PATH": "",
     "BATCH_QUERY_BASE_SIZE": 1000,
     "RETRY_UNIX_SOCKET_AFTER": 30000,
     "REQUEST_TIMEOUT": 10000,
@@ -64,21 +65,22 @@
   },
   "SECOND_CORE_RPC": {
     "HOST": "127.0.0.1",
-    "PORT": 8332,
-    "USERNAME": "mempool",
-    "PASSWORD": "mempool",
+    "PORT": 9527,
+    "SSL": false,
+    "USERNAME": "q17AIoqBJSEhW7djqjn0nTsZcz4=",
+    "PASSWORD": "nnlkAZn58bqsyYwVtHIajZ16cj8=",
     "TIMEOUT": 60000,
     "COOKIE": false,
-    "COOKIE_PATH": "/path/to/bitcoin/.cookie"
+    "COOKIE_PATH": ""
   },
   "DATABASE": {
     "ENABLED": true,
-    "HOST": "127.0.0.1",
+    "HOST": "192.168.1.103",
     "PORT": 3306,
-    "SOCKET": "/var/run/mysql/mysql.sock",
-    "DATABASE": "mempool",
-    "USERNAME": "mempool",
-    "PASSWORD": "mempool",
+    "SOCKET": "",
+    "DATABASE": "mempool_satsnet2",
+    "USERNAME": "root",
+    "PASSWORD": "tinyverse",
     "TIMEOUT": 180000,
     "PID_DIR": ""
   },
@@ -154,7 +156,7 @@
     "ACCELERATIONS": false
   },
   "FIAT_PRICE": {
-    "ENABLED": true,
+    "ENABLED": false,
     "PAID": false,
     "API_KEY": "your-api-key-from-freecurrencyapi.com"
   }
